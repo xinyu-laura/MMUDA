@@ -27,6 +27,8 @@ python eval.py --name exp --targets D --test-size 16
 ```
 python predict.py --name exp --targets D --test-size 16
 ```
+## Others
+Create a folder `pretrained` in the current directory and put the pretrained model (e.g. mit_b2.pth) there.
 
 # Publications
 
