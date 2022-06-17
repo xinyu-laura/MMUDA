@@ -4,6 +4,27 @@
 
 This is the source code of paper: Towards Robust Semantic Segmentation of Accident Scenes via Multi-Source Mixed Sampling and Meta-Learning. The code will be available soon.
 
+## Train the model
+
+The model can be trained with `train.py`. If we want to train the MLDG with five source domains(W, A, B, I, C) and one target domain(D), we can parse such as these arguments.
+```
+python train.py --name exp --source WABIC --target C --train-num 1 --mix 2 --network O
+```
+For more details, please refer to `train.py`
+
+## Test the model
+
+The model can be trained with following command using `eval.py`. 
+```
+python eval.py --name exp --targets C --test-size 16
+```
+
+## Predict
+
+```
+python predict.py --name exp --targets C --test-size 16
+```
+
 # Publications
 
 If you find this work useful, please consider referencencing the following paper:
