@@ -11,7 +11,7 @@ PyTorch (version >= 1.7.1), mmcv, and others in `requirements.txt`.
 
 The model can be trained with `train.py`. If we want to train the MLDG with five source domains(W, A, B, I, C) and one target domain(D), we can parse such as these arguments.
 ```
-python train.py --name exp --source WABIC --target C --train-num 1 --mix 2 --network O
+python train.py --name exp --source WABIC --target D --train-num 1 --mix 2 --network O
 ```
 For more details, please refer to `train.py`
 
@@ -19,13 +19,13 @@ For more details, please refer to `train.py`
 
 The model can be trained with following command using `eval.py`. 
 ```
-python eval.py --name exp --targets C --test-size 16
+python eval.py --name exp --targets D --test-size 16
 ```
 
 ## Predict
 
 ```
-python predict.py --name exp --targets C --test-size 16
+python predict.py --name exp --targets D --test-size 16
 ```
 
 # Publications
