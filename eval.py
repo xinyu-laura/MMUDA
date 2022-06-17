@@ -29,17 +29,7 @@ def test_one_run(framework, run_name, targets, batches=[16], normal_eval=True, t
         iou = AverageMeter()
 
         if normal_eval:
-            for batch in batches:
-                framework.log('------ {} in 5 runs ------'.format(batch) + '\n\n')
-                for i, seed in enumerate(seeds):
-                    if batch == 1 and i == 1:
-                        break
-                    torch.manual_seed(seed)
-                    np.random.seed(seed)
-                    res, v1,v2 = framework.val(get_target_loader(target, batch, shuffle=True), **kwargs)
-                    iou.update(res)
-                framework.log('mean, batch : {},  mIoU : {},'.format(batch, iou.avg) + '\n\n')
-                iou.reset()
+            framework.val(get_target_loader(target, 8, shuffle=False), **kwargs)
 
         if target_specific_eval:
             for batch in batches:
@@ -59,16 +49,6 @@ def do_lots_of_exp_tests(names, targets, batch_sizes, **kwargs):
     framework = MetaFrameWork(name='tmp_last_epoch')
     for name, target, batch in zip(names, targets, batch_sizes):
         test_one_run(framework, name, target, batches=batch, **kwargs)
-
-
-def parse():
-    args = parser.parse_args()
-    names = [args.name]
-    targets = [args.target]
-    for name in args.target:
-        assert name in 'WABICD'
-    batches = [[args.test_size]]
-    do_lots_of_exp_tests(names, targets, batches, normal_eval=args.normal_eval, target_specific_eval=args.target_eval)
 
 
 if __name__ == '__main__':
