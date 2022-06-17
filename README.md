@@ -5,7 +5,7 @@
 This is the source code of paper: Towards Robust Semantic Segmentation of Accident Scenes via Multi-Source Mixed Sampling and Meta-Learning. Part of the code is borrowed from [TSMLDG] (https://github.com/koncle/TSMLDG) and [mmsegmentation] (https://github.com/open-mmlab/mmsegmentation).
 
 ## Environment
-PyTorch (version >= 1.7.1), mmcv, and others in 'requirements.txt'
+PyTorch (version >= 1.7.1), mmcv, and others in `requirements.txt`.
 
 ## Train the model
 
