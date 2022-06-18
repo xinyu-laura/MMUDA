@@ -120,7 +120,7 @@ class MetaFrameWork(object):
         dataloader = functools.partial(DataLoader, num_workers=workers, pin_memory=True, batch_size=self.test_size, shuffle=False)
         self.target_loader_val = dataloader(target_dataset(root=ROOT + folder, mode='val'))       
         # self.target_test_loader = dataloader(target_dataset(root=ROOT + folder, mode='test'))
-        if self.opt == 'SGD':
+        if self.opt == 'S':
             self.opt_old = SGD(self.backbone.parameters(), lr=self.outer_update_lr, momentum=0.9, weight_decay=5e-4)
         elif self.opt == 'A':
             self.opt_old = AdamW(params=[
