@@ -1,6 +1,6 @@
 import argparse
 
-from TSMLDG import MetaFrameWork
+from MMUDA import MetaFrameWork
 
 parser = argparse.ArgumentParser(description='TSMLDG train args parser')
 parser.add_argument('--name', default='exp', help='name of the experiment')
