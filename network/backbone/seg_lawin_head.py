@@ -420,14 +420,6 @@ class LawinHead(BaseDecodeHead):
 
         _c = self.linear_fuse(torch.cat([_c4, _c3, _c2], dim=1)) #(n, c, 128, 128)
         #print(_c.size())
-        x_visual_1 = _c
-        #print(x_visual_1.size())
-        x_visual_1, index = torch.max(x_visual_1, dim=1, keepdim=True)
-        x_visual_1 = F.interpolate(x_visual_1, size=(512,1024), mode="bilinear", align_corners=False)
-        #
-        #print(x_visual_1.size())
-
-
         n, _, h, w = _c.shape
 
         ############### Lawin attention spatial pyramid pooling ###########
@@ -459,11 +451,7 @@ class LawinHead(BaseDecodeHead):
 
         output = resize(output, size=c1.size()[2:], mode='bilinear', align_corners=False)
         output = self.low_level_fuse(torch.cat([output, _c1], dim=1))
-        x_visual_2 = output
-        x_visual_2, index = torch.max(x_visual_2, dim=1, keepdim=True)
 
-        x_visual_2 = F.interpolate(x_visual_2, size=(512,1024), mode="bilinear", align_corners=False)
-        #x_visual_2, index = torch.max(x_visual_2, dim=1)
         output = self.cls_seg(output)
 
-        return output, x_visual_1, x_visual_2
+        return output
