@@ -1,8 +1,8 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F 
-from seg_head import SegFormerHead
-import seg_mit
+from network.backbone.seg_head import SegFormerHead
+import network.backbone.seg_mit
 
 class segformer(nn.Module):
     def __init__(self, backbone, num_classes=20, embedding_dim=768, pretrained=None):
