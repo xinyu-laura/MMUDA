@@ -5,8 +5,8 @@ import torch.nn.functional as F
 #from mit import MiT
 from timm.models.layers import DropPath, to_2tuple, trunc_normal_
 #from .heads import SegFormerHead
-from seg_lawin_head import LawinHead
-import seg_mit
+from network.backbone.seg_lawin_head import LawinHead
+import network.backbone.seg_mit
 
 
 segformer_settings = {
