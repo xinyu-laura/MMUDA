@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F 
 from network.backbone.seg_head import SegFormerHead
-import network.backbone.seg_mit
+from network.backbone import seg_mit
 
 class segformer(nn.Module):
     def __init__(self, backbone, num_classes=20, embedding_dim=768, pretrained=None):
@@ -13,7 +13,7 @@ class segformer(nn.Module):
         #self.in_channels = [32, 64, 160, 256]
         #self.in_channels = [64, 128, 320, 512]
 
-        self.encoder = getattr(seg_mix, backbone)()
+        self.encoder = getattr(seg_mit, backbone)()
         self.in_channels = self.encoder.embed_dims
         ## initilize encoder
         if pretrained:
