@@ -26,7 +26,7 @@ class segformer_lawin(nn.Module):
         self.embedding_dim = embedding_dim
         self.feature_strides = [4, 8, 16, 32]
 
-        self.encoder = getattr(seg_mix, backbone)()
+        self.encoder = getattr(seg_mit, backbone)()
 
         self.in_channels = self.encoder.embed_dims
         ## initilize encoder
