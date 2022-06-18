@@ -30,7 +30,7 @@ ignore_idx = -1
 def get_transform(mode='train', base_long_size=520, scale=[0.5, 2.0],
                   crop_size=480, do_random_scale=True, random_rotate=False, val_full_size=False):
     scale_op = RandomScale(base_long_size, scale) if do_random_scale else do_nothing()
-    if mode == 'train':
+    if mode == 'train' or mode == 'test':
         if random_rotate:
             transforms = Compose([
                 RandomFlip(),
@@ -48,11 +48,9 @@ def get_transform(mode='train', base_long_size=520, scale=[0.5, 2.0],
             ])
 
     elif mode == 'val' and not val_full_size:
-        transforms = Compose([
-            Resize((512,1024), (512,1024))
+        transforms = None
             # MARK : test if do not center crop when validate or test
-            # CenterCrop([crop_size, crop_size], mask_fill=ignore_idx),
-        ])
+            # CenterCrop([crop_size, crop_size], mask_fill=ignore_idx),])
     else:
         transforms = None
     return transforms
@@ -442,7 +440,7 @@ class BDD(CityScapesDataSet):
 # 313 val, 13146 test     
 class DADASeg(CityScapesDataSet):
     def __init__(self, root, output_path='.', force_cache=False, mode='train',
-                 base_size=1584, crop_size=768, scale=[0.5, 2.0], random_scale=True, random_rotate=True):
+                 base_size=1584, crop_size=512, scale=[0.5, 2.0], random_scale=True, random_rotate=True):
         super(DADASeg, self).__init__(root, output_path, force_cache, mode, base_size, crop_size, scale, random_scale, random_rotate)
         self.classes = [label[0] for label in labels]
         self._key = np.array(label_to_citys(self.classes, self.idx_of_objects)).astype('int32')
@@ -459,7 +457,7 @@ class DADASeg(CityScapesDataSet):
         return train, dev, test   
         
     def __len__(self):
-        if self.mode == 'val':
+        if self.mode == 'val' or self.mode == 'test':
             return len(self.paths)
         else:
             return 500

@@ -90,7 +90,11 @@ class BaseDataSet(Dataset):
             if f is None:
                 continue
             img, mask = f(img, mask, self.mode)
-        return img_filename, img, mask
+            
+        if self.mode == 'test':          
+            return img_filename, img
+        else:
+            return img_filename, img, mask
 
     def __len__(self):
         return len(self.paths)
