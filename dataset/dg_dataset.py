@@ -52,7 +52,7 @@ def get_target_loader(name, batch_size, mode='val', **kwargs):
 
 class DGMetaDataSets(object):
     def __init__(self, output_path='.', force_cache=True, mode='train',
-                 crop_size=512, scale=[0.5, 2.0], random_scale=True,
+                 crop_size=512, imgs_per_epoch=3000, scale=[0.5, 2.0], random_scale=True,
                  random_rotate=True, post_processor=None, domains=['G', 'S'],
                  split_num=2):
         super(DGMetaDataSets, self).__init__()
@@ -60,6 +60,7 @@ class DGMetaDataSets(object):
         root = ROOT
         self.mode = mode
         self.domain_split_num = split_num
+        self.imgs_per_epoch = imgs_per_epoch
 
         # Generate domain datasets
         gta5_styles = {'c': 'cezanne', 'v': 'vangogh', 'u': 'ukiyoe'}
@@ -113,7 +114,7 @@ class DGMetaDataSets(object):
 
     def __len__(self):
         if self.mode == 'train':
-            return 3000
+            return self.imgs_per_epoch
         else:
             return 500 // len(self.domains)
 
