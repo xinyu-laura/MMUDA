@@ -16,6 +16,7 @@ parser.add_argument('--train-num', type=int, default=1,
                     help='every ? iteration do one meta train, 1 is meta train, 10000000 is normal supervised learning.')
 parser.add_argument('--mix', type=int, default=2, help='0--without mixing, 1--mixing only for meta test, 2--mixing for meta train and test.')
 parser.add_argument('--network', default='O', help='R--resnet101, S-Segformer, O--ours.')
+parser.add_argument('--opt', default='A', help='S--SGD, A-AdamW')
 parser.add_argument('--no-source-test', action='store_false', help='whether test the validation performance in source domain when training')
 
 
@@ -32,6 +33,6 @@ def train():
 
 if __name__ == '__main__':
     from utils.task import FunctionJob
-    job = FunctionJob([train], gpus=[[1,0]])
+    job = FunctionJob([train], gpus=[[1]])
     job.run(minimum_memory=2000)
     # train()
