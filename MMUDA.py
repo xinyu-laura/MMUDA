@@ -141,7 +141,7 @@ class MetaFrameWork(object):
                     },
                 ], lr=self.outer_update_lr, betas=(0.9, 0.999), eps=1e-6, weight_decay=5e-4)
             
-        self.scheduler_old = PolyLR(self.opt_old, self.total_epoch, len(self.train_loader), 0, True, power=0.9)
+        self.scheduler_old = PolyLR(self.opt_old, self.total_epoch, len(self.train_loader), 1, True, power=0.9)
         
         self.interp = nn.Upsample(size=(768, 768), mode='bilinear', align_corners=True)
 
@@ -284,12 +284,12 @@ class MetaFrameWork(object):
                         # target train images, labels  
                          
                         t_imgs =  to_cuda(t_imgs)
-                        #print(t_imgs.size())
+                        
                         B, C, H, W = t_imgs.size()
                         
                         # pseudo_label: target for training
-                        logits_u_w = self.backbone(t_imgs)
-                        #logits_u_w = nn.functional.interpolate(logits_u_w, (B,1,H,W)[2:], align_corners=True, mode='bilinear')
+                        with torch.no_grad():
+                            logits_u_w = self.backbone(t_imgs)
                         logits_u_w = make_same_size(logits_u_w, s_targets)  
                         #targets_u_w = get_prediction(logits_u_w).unsqueeze(1)
                         pseudo_label = torch.softmax(logits_u_w.detach(), dim=1)
