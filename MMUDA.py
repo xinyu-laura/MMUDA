@@ -107,14 +107,14 @@ class MetaFrameWork(object):
         
         # source
         dataloader = functools.partial(DataLoader, num_workers=workers, pin_memory=True, batch_size=batch_size, shuffle=True)
-        self.train_loader = dataloader(self.dataset(mode='train', domains=self.source, force_cache=False, crop_size=512, imgs_per_epoch=3000))
+        self.train_loader = dataloader(self.dataset(mode='train', domains=self.source, force_cache=False, crop_size=600, imgs_per_epoch=3000))
 
         # dataloader = functools.partial(DataLoader, num_workers=workers, pin_memory=True, batch_size=self.test_size, shuffle=False)
         # self.source_val_loader = dataloader(self.dataset(mode='val', domains=self.source, force_cache=True))
         
         # traget
         target_dataset, folder = get_dataset(self.target)
-        self.target_loader_train = dataloader(target_dataset(root=ROOT + folder, mode='test'), batch_size=batch_size, crop_size=512)
+        self.target_loader_train = dataloader(target_dataset(root=ROOT + folder, mode='test'), batch_size=batch_size, crop_size=600)
         #self.target_loader_train = dataloader(target_dataset(root=ROOT + folder, mode='test'), batch_size=len(self.source)*batch_size)
 
         dataloader = functools.partial(DataLoader, num_workers=workers, pin_memory=True, batch_size=self.test_size, shuffle=False)
