@@ -48,7 +48,7 @@ def get_transform(mode='train', base_long_size=520, scale=[0.5, 2.0],
             ])
 
     elif mode == 'val' and not val_full_size:
-        transforms = None
+        transforms = Compose([Resize((512,1024), (512,1024))])
             # MARK : test if do not center crop when validate or test
             # CenterCrop([crop_size, crop_size], mask_fill=ignore_idx),])
     else:
@@ -440,7 +440,7 @@ class BDD(CityScapesDataSet):
 # 313 val, 13146 test     
 class DADASeg(CityScapesDataSet):
     def __init__(self, root, output_path='.', force_cache=False, mode='train',
-                 base_size=1584, crop_size=512, scale=[0.5, 2.0], random_scale=True, random_rotate=True):
+                 base_size=1584, crop_size=600, scale=[0.5, 2.0], random_scale=True, random_rotate=True):
         super(DADASeg, self).__init__(root, output_path, force_cache, mode, base_size, crop_size, scale, random_scale, random_rotate)
         self.classes = [label[0] for label in labels]
         self._key = np.array(label_to_citys(self.classes, self.idx_of_objects)).astype('int32')
