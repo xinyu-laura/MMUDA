@@ -52,7 +52,7 @@ def get_target_loader(name, batch_size, mode='val', **kwargs):
 
 class DGMetaDataSets(object):
     def __init__(self, output_path='.', force_cache=True, mode='train',
-                 crop_size=512, imgs_per_epoch=3000, scale=[0.5, 2.0], random_scale=True,
+                 crop_size=600, imgs_per_epoch=3000, scale=[0.5, 2.0], random_scale=True,
                  random_rotate=True, post_processor=None, domains=['G', 'S'],
                  split_num=2):
         super(DGMetaDataSets, self).__init__()
